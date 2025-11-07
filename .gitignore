@@ -417,3 +417,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 .idea
+lab3/blog.db
+lab3/blog.db-shm
+lab3/blog.db-wal
