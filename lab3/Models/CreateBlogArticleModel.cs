@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace aspNetMVC.Models
+namespace lab3.Models
 {
     public class CreateBlogArticleModel
     {

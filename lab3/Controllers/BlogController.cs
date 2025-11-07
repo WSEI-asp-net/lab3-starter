@@ -1,10 +1,9 @@
-using aspNetMVC.Models;
-using aspNetMVC.Models.Mappings;
-using lab3.YourProjectName.Data;
+using lab3.Models;
+using lab3.Models.Mappings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace aspNetMVC.Controllers
+namespace lab3.Controllers
 {
     public class BlogController : Controller
     {

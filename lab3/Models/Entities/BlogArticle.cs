@@ -1,4 +1,4 @@
-namespace aspNetMVC.Models.Entities
+namespace lab3.Models.Entities
 {
     public class BlogArticle
     {

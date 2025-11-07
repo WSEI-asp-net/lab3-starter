@@ -1,4 +1,4 @@
-﻿namespace aspNetMVC.Models
+﻿namespace lab3.Models
 {
     public class BlogArticleViewModel
     {

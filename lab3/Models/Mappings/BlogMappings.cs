@@ -1,6 +1,6 @@
-using aspNetMVC.Models.Entities;
+using lab3.Models.Entities;
 
-namespace aspNetMVC.Models.Mappings
+namespace lab3.Models.Mappings
 {
     public static class BlogMappings
     {

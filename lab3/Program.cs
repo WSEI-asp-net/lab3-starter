@@ -1,4 +1,4 @@
-using lab3.YourProjectName.Data;
+using lab3;
 
 var builder = WebApplication.CreateBuilder(args);
 
