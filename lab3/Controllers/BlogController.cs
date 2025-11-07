@@ -1,23 +1,30 @@
 using aspNetMVC.Models;
-using aspNetMVC.Models.Entities;
 using aspNetMVC.Models.Mappings;
-using lab3;
+using lab3.YourProjectName.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace aspNetMVC.Controllers
 {
     public class BlogController : Controller
     {
-        public IActionResult Index()
+        public BlogController(BlogContext context)
         {
-            var entities = InMemoryBlogStore.GetAll();
+            _context = context;
+        }
+
+        private readonly BlogContext _context;  
+
+        public async Task<IActionResult> Index()
+        {
+            var entities = await _context.Articles.ToListAsync();
             var viewModels = entities.Select(e => e.ToViewModel()); 
             return View(viewModels);
         }
 
-        public IActionResult Article(string id)
+        public async Task<IActionResult> Article(string id)
         {
-            var post = InMemoryBlogStore.GetById(id);
+            var post = await _context.Articles.FirstOrDefaultAsync(p => p.Id == id);
             if (post == null) return NotFound();
             var viewModel = post.ToViewModel();
             return View(viewModel);
@@ -31,21 +38,22 @@ namespace aspNetMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateBlogArticleModel viewModel)
+        public async Task<IActionResult> Create(CreateBlogArticleModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
 
-            if (InMemoryBlogStore.Exists(viewModel.Id))
+            if (await _context.Articles.AnyAsync(a => a.Id == viewModel.Id))
             {
                 ModelState.AddModelError(nameof(viewModel.Id), "Id must be unique.");
                 return View(viewModel);
             }
 
             var entity = viewModel.ToEntity();
-            InMemoryBlogStore.Add(entity);
+            _context.Articles.Add(entity);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Article), new { id = entity.Id });
         }
     }
